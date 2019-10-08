@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function index(Request $request)
+    public function index()
+    {
+        $companies =  Company::latest()->get();
+        return view('company.index',compact('companies'));
+    }
+    public function create(Request $request)
     {
         if ($request->isMethod('post')) 
         {

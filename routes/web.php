@@ -12,16 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('layouts.master');
+    return view('layouts.content');
 });
 
 
 
-
-Route::match(['get', 'post'], 'company/index', 'CompanyController@index')->name('company.index');
-Route::match(['get', 'post'], 'company/update/{id}', 'CompanyController@update')->name('company.update');
-Route::get('company/delete/{id}','CompanyController@destory')->name('company.delete');
-
+Route::group(['prefix' => 'company'], function () {
+    Route::get('/index','CompanyController@index')->name('company.index');
+    Route::match(['get', 'post'], 'create', 'CompanyController@create')->name('company.create');
+    Route::match(['get', 'post'], 'update/{id}', 'CompanyController@update')->name('company.update');
+    Route::get('company/delete/{id}','CompanyController@destory')->name('company.delete');
+});
 
 Route::get('employer/search','EmployerController@search')->name('employer.search');
 Route::match(['get', 'post'], 'employer/index', 'EmployerController@index')->name('employer.index');
